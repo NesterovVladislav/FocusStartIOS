@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
+            <connections>
+                <outlet property="inputNewCours" destination="CQG-Sy-pCW" id="vJT-yZ-jiG"/>
+                <outlet property="inputSumMoney" destination="jCm-wb-lZZ" id="IFG-wE-fu0"/>
+                <outlet property="outputSumMoney" destination="ogE-hZ-EN9" id="RUX-Ao-lm9"/>
+                <outlet property="view" destination="iN0-l3-epB" id="4vt-cF-riF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aplication for Convert money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFg-qJ-rPW">
+                    <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                    <color key="textColor" red="0.3411117474" green="0.1299700936" blue="0.1392770632" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" red="0.054877667470000002" green="0.05444353004" blue="0.057448462040000002" alpha="1" colorSpace="calibratedRGB"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="IN SUM" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jCm-wb-lZZ">
+                    <color key="backgroundColor" red="1" green="0.84281281689999998" blue="0.33801030520000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="hpC-7k-EZT"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ie7-jv-wrc">
+                    <color key="backgroundColor" red="0.26640047839999997" green="0.2695647196" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <size key="titleShadowOffset" width="90" height="90"/>
+                    <state key="normal" title="Convert">
+                        <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </state>
+                    <connections>
+                        <action selector="ClickButtonForConvert" destination="-1" eventType="touchUpInside" id="SMg-Jt-3tj"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="OUT SUM" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ogE-hZ-EN9">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="JtI-0U-agG"/>
+                        <constraint firstAttribute="height" constant="60" id="Nn9-dE-uCx"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cours Valute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pe-Zy-KOw">
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="62.5" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CQG-Sy-pCW">
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RqM-mc-oY5">
+                    <color key="backgroundColor" red="0.3396386851" green="0.24974703619999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Save Cours">
+                        <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="SaveNewCours" destination="-1" eventType="touchUpInside" id="VqO-JT-6AN"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EY5-A4-P2L">
+                    <color key="backgroundColor" red="1" green="0.22471782239999999" blue="0.81395072580000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <size key="titleShadowOffset" width="90" height="90"/>
+                    <state key="normal" title="Course">
+                        <color key="titleShadowColor" red="1" green="0.22471782239999999" blue="0.81395072580000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="OpetTableValue" destination="-1" eventType="touchUpInside" id="X4d-0D-Qxg"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.9936518610809123" blue="0.3739619377046014" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="ogE-hZ-EN9" firstAttribute="trailing" secondItem="RqM-mc-oY5" secondAttribute="trailing" id="5ZU-ab-DJB"/>
+                <constraint firstItem="jCm-wb-lZZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="26" id="F9L-UJ-WPw"/>
+                <constraint firstItem="RqM-mc-oY5" firstAttribute="baseline" secondItem="3pe-Zy-KOw" secondAttribute="baseline" id="FhR-vK-60W"/>
+                <constraint firstItem="RqM-mc-oY5" firstAttribute="leading" secondItem="CQG-Sy-pCW" secondAttribute="trailing" constant="18" id="HLx-3D-eID"/>
+                <constraint firstItem="ogE-hZ-EN9" firstAttribute="leading" secondItem="ie7-jv-wrc" secondAttribute="trailing" constant="16" id="KiH-wz-xgr"/>
+                <constraint firstItem="CQG-Sy-pCW" firstAttribute="leading" secondItem="3pe-Zy-KOw" secondAttribute="trailing" constant="14" id="MaZ-Cn-wMH"/>
+                <constraint firstItem="EY5-A4-P2L" firstAttribute="leading" secondItem="jCm-wb-lZZ" secondAttribute="trailing" constant="31" id="RoL-Id-E3J"/>
+                <constraint firstItem="ogE-hZ-EN9" firstAttribute="top" secondItem="vFg-qJ-rPW" secondAttribute="bottom" constant="7" id="Rob-le-plC"/>
+                <constraint firstItem="EY5-A4-P2L" firstAttribute="top" secondItem="ie7-jv-wrc" secondAttribute="bottom" constant="3" id="Tor-vI-JIm"/>
+                <constraint firstItem="ogE-hZ-EN9" firstAttribute="bottom" secondItem="jCm-wb-lZZ" secondAttribute="bottom" id="W3X-Yh-4c3"/>
+                <constraint firstItem="vFg-qJ-rPW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="WP1-xi-JIi"/>
+                <constraint firstItem="CQG-Sy-pCW" firstAttribute="top" secondItem="ogE-hZ-EN9" secondAttribute="bottom" constant="63" id="WS2-yN-uxG"/>
+                <constraint firstAttribute="trailing" secondItem="ogE-hZ-EN9" secondAttribute="trailing" constant="24" id="WTo-eZ-hXU"/>
+                <constraint firstItem="jCm-wb-lZZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="66" id="ZdJ-eb-7Er"/>
+                <constraint firstItem="EY5-A4-P2L" firstAttribute="trailing" secondItem="ie7-jv-wrc" secondAttribute="trailing" id="Zxf-cm-lPs"/>
+                <constraint firstItem="ie7-jv-wrc" firstAttribute="leading" secondItem="jCm-wb-lZZ" secondAttribute="trailing" constant="29" id="bMZ-Vz-Sqk"/>
+                <constraint firstItem="ogE-hZ-EN9" firstAttribute="top" secondItem="ie7-jv-wrc" secondAttribute="top" id="hzG-PX-VZH"/>
+                <constraint firstItem="3pe-Zy-KOw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="35" id="k8U-yU-ndw"/>
+                <constraint firstItem="ogE-hZ-EN9" firstAttribute="baseline" secondItem="jCm-wb-lZZ" secondAttribute="baseline" id="o5T-5S-Ftc"/>
+                <constraint firstItem="vFg-qJ-rPW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rv0-bS-pte"/>
+                <constraint firstItem="RqM-mc-oY5" firstAttribute="top" secondItem="ogE-hZ-EN9" secondAttribute="bottom" constant="64" id="wvk-n7-gk4"/>
+            </constraints>
+            <point key="canvasLocation" x="26.5" y="52.5"/>
+        </view>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LCT-2X-fGC">
+            <rect key="frame" x="0.0" y="0.0" width="11" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="279" y="-154"/>
+        </label>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ru" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ygn-er-gXh">
+            <rect key="frame" x="0.0" y="0.0" width="21" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="-190" y="-171"/>
+        </label>
+    </objects>
+</document>

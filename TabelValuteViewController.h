@@ -1,13 +1,13 @@
 //
-//  TableValueWantedClose.h
+//  SecondViewController.h
 //  ConverterMany
 //
 //  Created by Student on 05.11.16.
 //  Copyright © 2016 CFT:FocusStart. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@protocol TableValueWantedClose <NSObject>
+@interface SecondViewController : UIViewController
 
 @end

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface CurrenayConverter : NSObject
-
-- ( float ) convertRubtoUSD : ( float ) value and : ( float ) cource;
-
+    -( NSDecimalNumber * ) convertRubtoUSD : ( NSDecimalNumber * ) value and : ( NSDecimalNumber * ) cource;
+    -(float)convertCodeInCourse:(NSString *)code;
 @end

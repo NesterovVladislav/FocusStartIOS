@@ -9,81 +9,159 @@
 #import "ViewController.h"
 #import "CurrenayConverter.h"
 #import "TableValuteViewController.h"
+#import "HistoryViewController.h"
+#import "Currency.h"
+#import "CurrencyManager.h"
+#import "DateManager.h"
+#import "ExchangeRatesManager.h"
 
-float paramentConvert = 62.5;
+
 
 @interface ViewController ()< UITextFieldDelegate >
+
+
 
 @end
 
 @implementation ViewController
-	{
-		IBOutlet UITextField *inputSumMoney;
-		IBOutlet UITextField *outputSumMoney;
-		IBOutlet UITextField *inputNewCours;
-		TableValuteViewController *tableValueVC;
-	}
+{
+    IBOutlet UITextField *inputSumMoney;
+    IBOutlet UITextField *outputSumMoney;
+    IBOutlet UILabel *infomationLaabel;
+    TableValuteViewController *tableValueVC;
+    HistoryViewController *tableHistoryVC;
+    CurrenayConverter *converter;
+    CurrencyManager *currencyManager;
+    NSNumber *exchangeRate;
+    NSString * information;
+    NSDecimalNumber *paramentConvert;
+}
+
+- ( instancetype ) initWithAppContext : ( AppContext * ) anAppContext
+{
+    assert( nil != anAppContext );
+    
+    self = [super initWithNibName : nil bundle : nil ];
+    
+    _appContext = anAppContext;
+    
+    return self;
+}
 
 - ( void ) viewDidLoad
-	{
-		[super viewDidLoad ];
-		inputSumMoney.delegate = self;
-		inputNewCours.delegate = self;
-		self.title = @"Converter Valute";
-	}
+{
+    [ super viewDidLoad ];
+    
+    inputSumMoney.delegate = self;
+    
+    self.title = @"Converter Valute";
+    
+    converter = [ [ CurrenayConverter alloc ] init ];
+    currencyManager = [ [ CurrencyManager alloc ] init ];
+    
+    information = [ NSString stringWithFormat : @"%@%@", @"Convert from ", currencyManager.baseCurrency.code ];
+    [ infomationLaabel setText : information ];
+    
+    paramentConvert = [ NSDecimalNumber decimalNumberWithString : @"0.0" ];
+}
+
+- ( void ) viewWillAppear : ( BOOL ) animated
+{
+    [ super viewWillAppear : animated ];
+    typeof( self ) __weak weakSelf = self;
+    self.appContext.exchangeRatesManager.errorHandler = ^( NSError *error )
+    {
+        [ weakSelf handleError : error ];
+    };
+}
 
 - ( void ) didReceiveMemoryWarning
-	{
-		[ super didReceiveMemoryWarning ];
-	}
+{
+    [ super didReceiveMemoryWarning] ;
+}
 
 - ( void ) ConverSumma : ( NSString * ) sum
-	{
-		CurrenayConverter *converter = [ [ CurrenayConverter alloc ] init ];
-		float itog = [ converter convertRubtoUSD : sum.floatValue and : paramentConvert ];
-		NSLog( @"converter %0.3f", itog );
-		[ outputSumMoney setText : [ NSString stringWithFormat : @"%0.3f", itog ] ];
-	}
-
-- ( IBAction ) ClickButtonForConvert
-	{
-		[ self ConverSumma : inputSumMoney.text ];
-	}
-
--( IBAction ) SaveNewCours
-	{
-		paramentConvert = inputNewCours.text.floatValue;
-		[ self ConverSumma : inputSumMoney.text ];
-	}
+{
+    NSDecimalNumber * itog = [ converter convertRubtoUSD : [ NSDecimalNumber decimalNumberWithString : [ sum isEqualToString : @"" ] ? @"0.0" : sum ] and : paramentConvert ];
+    [ outputSumMoney setText : [ NSString stringWithFormat : @"%0.5lf", itog.doubleValue ] ];
+}
 
 - ( IBAction ) OpetTableValue
-	{
-		tableValueVC = [ [ TableValuteViewController alloc ] initWithNibName : nil bundle : nil ];
-		tableValueVC.delegate = self;
-		[ self.navigationController pushViewController : tableValueVC animated : YES ];
-	}
+{
+    tableValueVC = [ [ TableValuteViewController alloc ] initWithNibName : nil bundle : nil ];
+    tableValueVC.delegate = self;
+    [ self.navigationController pushViewController : tableValueVC animated : YES ];
+}
+
+- ( IBAction ) OpetTableHistory
+{
+    tableHistoryVC = [ [ HistoryViewController alloc ] initWithNibName : nil bundle : nil ];
+    tableHistoryVC.delegate = self;
+    [ self.navigationController pushViewController : tableHistoryVC animated : YES ];
+}
 
 - ( BOOL ) textField : ( UITextField * ) textField shouldChangeCharactersInRange : ( NSRange ) range replacementString : ( NSString * ) string
-	{
-		NSString *newString;
-		newString = textField.text;
-		newString = [ newString stringByReplacingCharactersInRange : range withString : string ];
-		if( textField == inputSumMoney )
-			{
-				[ self ConverSumma:newString ];
-				return YES;
-			} else if( textField == inputNewCours )
-			{
-				paramentConvert = newString.floatValue;
-				[ self ConverSumma : inputSumMoney.text ];
-				return YES;
-			}
-		return NO;
-	}
+{
+    NSString *newString = textField.text;
+    newString = [ newString stringByReplacingCharactersInRange : range withString : string ];
+    if ( ! [ string isEqualToString : @"" ] )
+    {
+        NSError *error = NULL;
+        NSRegularExpression *expr = [ NSRegularExpression regularExpressionWithPattern : @"[0-9]?+\\.?[0-9]?" options :NSRegularExpressionCaseInsensitive error : &error ];
+        
+        if ( error )
+        {
+           [ self handleError : error ];
+        }
+        
+        NSRange coordinateRange = [ expr rangeOfFirstMatchInString : string options : 0 range : NSMakeRange( 0, [ string length ] ) ];
+        
+        if ( coordinateRange.length == 0 )
+        {
+            newString = [ newString substringToIndex : [ newString length ] - 1 ];
+            return NO;
+        }
+    }
+    
+    [ self ConverSumma:newString ];
+    return YES;
+}
 
-- ( void ) FinishSelectValueWantedClose
-	{
-	    [ self.navigationController popViewControllerAnimated : YES ];
-	}
+- ( void ) FinishSelectValueWantedClose : ( Currency * ) currency
+{
+    [ self.navigationController popViewControllerAnimated : YES ];
+    typeof( self ) __weak weakSelf = self;
+    
+    [ self.appContext.exchangeRatesManager exchangeRateForCurrency : currency completion : ^( NSNumber *rate ) {
+        [ weakSelf updateRate : rate and:currency ];
+    }];
+}
 
+- ( void ) handleError : ( NSError * ) error
+{
+    UIAlertController *alert = [ UIAlertController alertControllerWithTitle : @"Ошибка"
+                                                                   message:error.localizedDescription
+                                                            preferredStyle : UIAlertControllerStyleAlert ];
+     UIAlertAction* actionCancel = [ UIAlertAction actionWithTitle : @"Закрыть" style : UIAlertActionStyleCancel handler : nil ];
+    [ alert addAction : actionCancel ];
+    [ self presentViewController : alert animated : YES completion : nil ];
+}
+
+- ( void ) updateRate : ( NSNumber * ) rate and : ( Currency * ) currency
+{
+    paramentConvert = [ NSDecimalNumber decimalNumberWithString : rate.stringValue ];
+    [ self ConverSumma : inputSumMoney.text ];
+    
+    [ infomationLaabel setText : [ NSString stringWithFormat : @"%@%@%@%@%.3lf", information, @" in ", currency.code,
+                                  @" at the rate of ", paramentConvert.doubleValue ] ];
+}
+
+- (void)FinishHistory{
+    [ self.navigationController popViewControllerAnimated : YES ];
+}
+
+- ( void ) FinishHistorySee
+{
+    [ self.navigationController popViewControllerAnimated : YES ];
+}
 @end

@@ -8,6 +8,7 @@
 
 #import "TableValuteViewController.h"
 #import "ViewController.h"
+#import "CurrencyDatasource.h"
 
 @interface TableValuteViewController ()
 
@@ -16,29 +17,40 @@
 @implementation TableValuteViewController
 {
     IBOutlet UITableView *tableData;
+    CurrencyDatasource *dataSource;
 }
 
+
+
 - ( void ) viewDidLoad
-	{
-		[ super viewDidLoad ];
-		self.title = @"Table Valute";
-		[ self configureNavigationItem ];
-	}
+{
+    [ super viewDidLoad ];
+    self.title = @"Table Valute";
+
+    CurrencyManager *aCurrencuManager = [ [ CurrencyManager alloc ] init ];
+    dataSource = [ [ CurrencyDatasource alloc ] initWithCurrencyManager : aCurrencuManager ];
+    
+    tableData.dataSource = dataSource;
+    tableData.delegate = dataSource;
+    
+    [ self configureNavigationItem ];
+}
 
 - ( void ) configureNavigationItem
-	{
-		UIBarButtonItem *doneButton = [ [ UIBarButtonItem alloc ] initWithTitle : @"Save Course" style : UIBarButtonItemStyleDone target : self action:@selector ( doneTapped ) ];
-		self.navigationItem.rightBarButtonItem = doneButton;
-	}
+{
+    UIBarButtonItem *doneButton = [ [ UIBarButtonItem alloc ] initWithTitle : @"Save Course" style : UIBarButtonItemStyleDone target:self action : @selector(doneTapped ) ];
+    
+    self.navigationItem.rightBarButtonItem = doneButton;
+}
 
 - ( void ) doneTapped
-	{
-		[ self.delegate FinishSelectValueWantedClose ];
-	}
+{
+    [ dataSource tableView : tableData didSelectRowAtIndexPath : tableData.indexPathForSelectedRow ];
+    [ self.delegate FinishSelectValueWantedClose : dataSource.selectedCurrency ];
+}
 
 - ( void ) didReceiveMemoryWarning
-	{
-		[ super didReceiveMemoryWarning ];
-	}
-
+{
+    [ super didReceiveMemoryWarning ];
+}
 @end

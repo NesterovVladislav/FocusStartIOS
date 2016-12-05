@@ -7,34 +7,20 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "AppController.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+{
+    AppController *appController;
+}
 
-- ( BOOL ) application : ( UIApplication * ) application didFinishLaunchingWithOptions : ( NSDictionary * ) launchOptions 
-	{
-		UIWindow *window = [ [ UIWindow alloc ] initWithFrame : [ UIScreen mainScreen ].bounds ];
-		ViewController  *mainVC = [ [ ViewController alloc ] initWithNibName : nil bundle : nil ];
-		UINavigationController *navigationController = [ [ UINavigationController alloc ] initWithRootViewController : mainVC ];
-		navigationController.navigationBar.translucent = NO;
-		window.rootViewController = navigationController;
-		[ window makeKeyAndVisible ];
-		self.window = window;
-        return YES;
-	}
-
-- ( void ) applicationWillResignActive : ( UIApplication * ) application {}
-
-- ( void ) applicationDidEnterBackground : ( UIApplication * ) application {}
-
-- ( void ) applicationWillEnterForeground : ( UIApplication * ) application {}
-
-- ( void ) applicationDidBecomeActive : ( UIApplication * ) application {}
-
-- ( void ) applicationWillTerminate : ( UIApplication * ) application {}
+- ( BOOL ) application : ( UIApplication * )application didFinishLaunchingWithOptions : ( NSDictionary * ) launchOptions {
+    appController = [ [ AppController alloc ] initWithConfigName : @"config.plist" ];
+    return YES;
+}
 
 @end

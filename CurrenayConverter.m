@@ -10,9 +10,19 @@
 
 @implementation CurrenayConverter
 
-- ( float ) convertRubtoUSD : ( float ) value and : ( float ) cource
-	{
-		return value / cource;
-	}
+-( NSDecimalNumber * ) convertRubtoUSD : ( NSDecimalNumber * ) value and : ( NSDecimalNumber * ) cource{
+    return [ value decimalNumberByMultiplyingBy : cource ];
+}
+-(float)convertCodeInCourse:(NSString *)code{
+    float course;
+    if( [code  isEqualToString:@"USD" ]){
+        course = 62.5;
+    } else if( [code isEqualToString:@"FRK"]){
+        course = 32.5;
+    }else{
+        course = 5.03;
+    }
+    return course;
+}
 
 @end

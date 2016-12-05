@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Currency.h"
+#import "Date.h"
 
-@protocol TableValueDelegate < NSObject >
+@protocol TableValueDelegate <NSObject>
 
-- ( void ) FinishSelectValueWantedClose;
-
+- ( void ) FinishSelectValueWantedClose : ( Currency * ) currency;
+- ( void ) FinishHistory;
+- ( void ) FinishHistorySee;
 @end

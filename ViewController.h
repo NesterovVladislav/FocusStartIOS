@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "TableValueDelegate.h"
-
+#import "AppContext.h"
 
 @interface ViewController : UIViewController< TableValueDelegate >
 
+@property ( nonatomic, strong, readonly ) AppContext *appContext;
 
+- ( instancetype ) initWithAppContext : ( AppContext * ) anAppContext;
 
 @end
 

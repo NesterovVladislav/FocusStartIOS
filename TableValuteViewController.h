@@ -11,6 +11,7 @@
 
 @interface TableValuteViewController : UIViewController
 
-@property ( weak ) id < TableValueDelegate > delegate;
+@property( weak ) id< TableValueDelegate > delegate;
+
 
 @end

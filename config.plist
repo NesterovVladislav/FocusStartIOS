@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>currencyBase</key>
+	<string>RUB</string>
+	<key>currencyOption</key>
+	<string>Российский рубль</string>
+	<key>useRemoteExchangeRates</key>
+	<true/>
+	<key>exchangeRateURL</key>
+	<string>http://api.fixer.io</string>
+</dict>
+</plist>

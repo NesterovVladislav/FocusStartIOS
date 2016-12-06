@@ -10,8 +10,8 @@
 #import "TableValueDelegate.h"
 #import "AppContext.h"
 
-@interface HistoryViewController : UIViewController<TableValueDelegate>
+@interface HistoryViewController : UIViewController
 
-@property(weak) id<TableValueDelegate> delegate;
+@property( weak ) id< TableValueDelegate > delegate;
 @property (nonatomic, strong, readonly) AppContext *appContext;
 @end

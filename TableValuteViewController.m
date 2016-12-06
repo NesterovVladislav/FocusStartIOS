@@ -46,7 +46,7 @@
 - ( void ) doneTapped
 {
     [ dataSource tableView : tableData didSelectRowAtIndexPath : tableData.indexPathForSelectedRow ];
-    [ self.delegate FinishSelectValueWantedClose : dataSource.selectedCurrency ];
+    [ self.delegate finishSelectValueWantedClose : dataSource.selectedCurrency ];
 }
 
 - ( void ) didReceiveMemoryWarning

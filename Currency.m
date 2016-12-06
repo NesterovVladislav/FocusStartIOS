@@ -10,49 +10,49 @@
 
 @implementation Currency
 
-+ (instancetype)currencyWithCode:(NSString *)code name:(NSString *)name
++ ( instancetype ) currencyWithCode : ( NSString * ) code name : ( NSString * ) name
 {
-    Currency *result = [[Currency alloc] initWithCode:code name:name];
+    Currency *result = [ [ Currency alloc ] initWithCode : code name : name ];
     
     return result;
 }
 
-- (instancetype)initWithCode:(NSString *)code name:(NSString *)name
+- ( instancetype ) initWithCode : ( NSString * ) code name : ( NSString * ) name
 {
-    self = [super init];
+    self = [ super init ];
     
-    _code = [code copy];
-    _name = [name copy];
+    _code = [ code copy ];
+    _name = [ name copy ];
     
     return self;
 }
 
-- (BOOL)isEqualToCurrency:(Currency *)currency
+- ( BOOL ) isEqualToCurrency : ( Currency * ) currency
 {
     return _code == currency.code;
 }
 
-- (BOOL)isEqual:(id)other
+- ( BOOL ) isEqual : ( id ) other
 {
-    if(other == self)
+    if( other == self )
     {
         return YES;
     }
     
-    if(NO == [other isKindOfClass:[self class]])
+    if( NO == [ other isKindOfClass : [ self class ] ] )
     {
         return NO;
     }
     
-    return [self isEqualToCurrency:other];
+    return [ self isEqualToCurrency:other ];
 }
 
-- (NSUInteger)hash
+- ( NSUInteger ) hash
 {
     return _code.hash;
 }
 
-- (instancetype)init
+- ( instancetype ) init
 {
     assert( NO );
     return nil;

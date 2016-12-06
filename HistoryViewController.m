@@ -11,16 +11,17 @@
 #import "DateDataSourse.h"
 #import "ViewHistory.h"
 
-@interface HistoryViewController ()< UITextFieldDelegate >
+static NSString * const REUSE_IDENTIFIER= @"dateCell";
 
+@interface HistoryViewController ()< UITableViewDelegate>
 
 @end
-
 @implementation HistoryViewController
 {
     IBOutlet UITableView * tableData;
     DateDataSourse *dateSours;
     ViewHistory * tableVC;
+    DateManager * aDateManager;
 }
 
 
@@ -28,64 +29,59 @@
     [super viewDidLoad];
     self.title = @"Table History";
      _appContext = [[AppContext alloc] initWithConfigName:@"config.plist"];
-    DateManager * aDateManager=[[DateManager alloc] init];
+    aDateManager=[[DateManager alloc] init];
     dateSours=[[DateDataSourse alloc] initWithDateManager:aDateManager];
     tableData.dataSource = dateSours;
-    tableData.delegate = dateSours;
+    tableData.delegate = self;
      [self configureNavigationItem];
-   /* CurrencyManager * aCurrencuManager=[[CurrencyManager alloc] init];
-    dataSource=[[CurrencyDatasource alloc] initWithCurrencyManager:aCurrencuManager];
-    
-    tableData.dataSource = dataSource;
-    tableData.delegate = dataSource;
-    [self configureNavigationItem];
-    // Do any additional setup after loading the view from its nib.*/
 }
 
--(void) configureNavigationItem
-{
-    UIBarButtonItem *seeButton = [[UIBarButtonItem alloc] initWithTitle:@"See" style:UIBarButtonItemStyleDone target:self action:@selector(seeHistory)];
-    //self.navigationItem.rightBarButtonItem = seeButton;
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(doneTapped)];
-    self.navigationItem.rightBarButtonItems=@[seeButton,doneButton];
-    //self.navigationItem.rightBarButtonItem = doneButton;
-}
-- (void)updateDate:(NSMutableArray *)rate{
-    tableVC= [ [ ViewHistory alloc ] initWithArray:rate];
-    tableVC.delegate = self;
-    [self.navigationController pushViewController:tableVC animated:YES];
-}
--(void)doneTapped{
-    [self.delegate FinishHistory];
-}
--(void) seeHistory{
-        [dateSours tableView:tableData didSelectRowAtIndexPath:tableData.indexPathForSelectedRow];
+- (void)tableView:(UITableView *) tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    
+    [dateSours tableView:tableData didSelectRowAtIndexPath:indexPath];
     typeof(self) __weak weakSelf = self;
     [self.appContext.exchangeRatesManager exchangeCourseForDate:dateSours.selectedDate  completion:^(NSMutableArray *dates){
         [weakSelf updateDate:dates];
     }];
-    /* [dataSource tableView:tableData didSelectRowAtIndexPath:tableData.indexPathForSelectedRow];
-    //NSString * code = [dataSource getCode];
-    //[ self.delegate FinishSelectValueWantedClose:code ];*/
-    //[self.delegate FinishWhatchHistory:dateSours.selectedDate ];
 }
+
+-( UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [ tableView dequeueReusableCellWithIdentifier:REUSE_IDENTIFIER];
+    
+    if ( nil == cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:REUSE_IDENTIFIER];
+    }
+    cell.textLabel.text= aDateManager.dates[indexPath.row].date;
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    dateSours.selectedDate = aDateManager.dates[indexPath.row];
+}
+
+-(void) configureNavigationItem
+{
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(doneTapped)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+}
+- (void)updateDate:(NSMutableArray *)rate{
+   tableVC= [ [ ViewHistory alloc ] initWithArray:rate date:dateSours.selectedDate ];
+     UINavigationController *navigationController = [ [ UINavigationController alloc ] initWithRootViewController : tableVC ];
+      [self presentViewController:navigationController animated:YES completion:NULL];
+}
+-(void)doneTapped{
+   [self.delegate finishHistory];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)FinishSelectValueWantedClose:(Currency *)currency
-{
-   /* [self.navigationController popViewControllerAnimated:YES];
-    typeof(self) __weak weakSelf = self;
-    
-    [self.appContext.exchangeRatesManager exchangeRateForCurrency:currency completion:^(NSNumber *rate) {
-        [weakSelf updateRate:rate];
-    }];*/
-}
--(void)FinishHistory{
-    [self.navigationController popViewControllerAnimated:YES];
-}
--(void)FinishHistorySee{ [self.navigationController popViewControllerAnimated:YES]; }
+
 @end

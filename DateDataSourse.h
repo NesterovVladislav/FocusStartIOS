@@ -12,7 +12,7 @@
 
 @class Date;
 @interface DateDataSourse : NSObject< UITableViewDataSource, UITableViewDelegate >
-@property(nonatomic, readonly) Date * selectedDate;
+@property(nonatomic) Date * selectedDate;
 -(instancetype)initWithDateManager:(DateManager *) aDateManager;
 -(NSString *) getDate;
 -( instancetype)  init NS_UNAVAILABLE;

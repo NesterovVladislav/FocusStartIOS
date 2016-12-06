@@ -9,6 +9,7 @@
 #import "ViewHistory.h"
 #import "ViewController.h"
 #import "CurrencyDatasource.h"
+#import "Date.h"
 @interface ViewHistory ()
 
 @end
@@ -18,18 +19,19 @@
     IBOutlet UITableView * tableData;
     CurrencyDatasource *dataSource;
 }
-- (instancetype)initWithArray:(NSMutableArray *)array{
+- (instancetype)initWithArray:(NSMutableArray *)array date:(Date *)date{
     assert( nil != array );
     
     self = [super initWithNibName:nil bundle:nil];
     
     _array= array;
+    _date = date;
     
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"History";
+    self.title = _date.date;
     
     CurrencyManager * aCurrencuManager=[[CurrencyManager alloc] initWithCurrencyManager:_array];
     dataSource=[[CurrencyDatasource alloc] initWithCurrencyManager:aCurrencuManager];
@@ -48,7 +50,7 @@
 
 -(void) doneTapped{
 
-    [self.delegate FinishHistorySee];
+    [ self dismissViewControllerAnimated:YES completion:NULL ];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

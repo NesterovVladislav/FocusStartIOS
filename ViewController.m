@@ -83,7 +83,7 @@
 - ( void ) ConverSumma : ( NSString * ) sum
 {
     NSDecimalNumber * itog = [ converter convertRubtoUSD : [ NSDecimalNumber decimalNumberWithString : [ sum isEqualToString : @"" ] ? @"0.0" : sum ] and : paramentConvert ];
-    [ outputSumMoney setText : [ NSString stringWithFormat : @"%0.5lf", itog.doubleValue ] ];
+    [ outputSumMoney setText : [ NSString stringWithFormat : @"%0.2lf", itog.doubleValue ] ];
 }
 
 - ( IBAction ) OpetTableValue
@@ -102,6 +102,12 @@
 
 - ( BOOL ) textField : ( UITextField * ) textField shouldChangeCharactersInRange : ( NSRange ) range replacementString : ( NSString * ) string
 {
+    if( paramentConvert.floatValue == 0 )
+    {
+        [ infomationLaabel setText : [ NSString stringWithFormat : @"%@", @"select course"]];
+        return NO;
+    }
+    
     NSString *newString = textField.text;
     newString = [ newString stringByReplacingCharactersInRange : range withString : string ];
     if ( ! [ string isEqualToString : @"" ] )
@@ -127,7 +133,7 @@
     return YES;
 }
 
-- ( void ) FinishSelectValueWantedClose : ( Currency * ) currency
+- ( void ) finishSelectValueWantedClose : ( Currency * ) currency
 {
     [ self.navigationController popViewControllerAnimated : YES ];
     typeof( self ) __weak weakSelf = self;
@@ -156,12 +162,7 @@
                                   @" at the rate of ", paramentConvert.doubleValue ] ];
 }
 
-- (void)FinishHistory{
-    [ self.navigationController popViewControllerAnimated : YES ];
-}
-
-- ( void ) FinishHistorySee
-{
+- (void)finishHistory{
     [ self.navigationController popViewControllerAnimated : YES ];
 }
 @end

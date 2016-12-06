@@ -12,7 +12,6 @@
 
 @protocol TableValueDelegate <NSObject>
 
-- ( void ) FinishSelectValueWantedClose : ( Currency * ) currency;
-- ( void ) FinishHistory;
-- ( void ) FinishHistorySee;
+- ( void ) finishSelectValueWantedClose : ( Currency * ) currency;
+- ( void ) finishHistory;
 @end

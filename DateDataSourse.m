@@ -37,6 +37,7 @@ static NSString * const REUSE_IDENTIFIER= @"dateCell";
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:REUSE_IDENTIFIER];
     }
     cell.textLabel.text= dateManager.dates[indexPath.row].date;
+      cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     
     return cell;
 }

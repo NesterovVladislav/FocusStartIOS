@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "TableValueDelegate.h"
+@class Date;
 @interface ViewHistory : UIViewController
 
-@property(weak) id<TableValueDelegate> delegate;
 @property (nonatomic, strong, readonly) NSMutableArray *array;
-- (instancetype)initWithArray:(NSMutableArray *)array;
+@property (nonatomic, strong, readonly) Date *date;
+- (instancetype)initWithArray:(NSMutableArray *)array date :( Date *) date;
 @end
